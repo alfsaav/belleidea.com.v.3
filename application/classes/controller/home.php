@@ -11,21 +11,7 @@ class Controller_Home extends Controller_MasterTemplate {
         
         
         $this->template->content = View::factory('blocks/image_slider');
-        
     }
-    
-    public function action_photo()
-	{
-	    $this->template->title   = 'Welcome to Belleidea';
-        $this->template->styles = array('assets/css/illu_folio.css' => 'screen');
-        $this->template->scripts = array("assets/js/home_bi.js",
-                                         "assets/js/pic_gallery_bi.js");
-        
-        
-        $this->template->content = View::factory('blocks/image_slider');
-        
-    }
-
     
 } // End Welcome
 ?>
