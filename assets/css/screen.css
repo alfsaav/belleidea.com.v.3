@@ -1,0 +1,291 @@
+/*z-index hiearchy
+#header = 50
+
+*/
+
+/*Yahoo Resets*//*Copyright (c) 2010, Yahoo! Inc. All rights reserved.Code licensed under the BSD License:http://developer.yahoo.com/yui/license.htmlversion: 3.3.0build: 3167*/html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+/*Font Embedding*/
+@font-face {
+	font-family:MyriadWeb;
+	src:url( /fonts/myriad_pro.otf) format("opentype");
+}
+/*Belleidea Global*/
+
+html,body {
+	background:url("/assets/img/body_bg.png") repeat-x scroll transparent;
+	font-family:arial,serif;
+	background-color:#EFEFF0;
+	color:#000;
+	font-size:13px;
+	letter-spacing:0;
+	margin:0;
+	padding:0;
+	cursor:default;
+}
+#body_wrapper {
+	display:none;
+	z-index:15;
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:#000;
+}
+a img {
+	border-style:none;
+}
+a,a:visited {
+	color:#0071BC;
+	font-weight:normal;
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+del {
+	font-style:italic;
+}
+p {
+	font-family:arial;
+	font-size:14px;
+	line-height:22px;
+	margin:14px 0;
+	padding:0;
+}
+h1,h2,h3 {
+	font-weight:normal;
+	font-family:MyriadWeb,'Myriad Pro','Droid Sans',Arial;
+	color:#666666;
+	margin:0;
+	padding:0;
+	letter-spacing:-0.3px;
+}
+h1 {
+	font-size:30px;
+	background:url("/assets/img/h1_bar.png") no-repeat scroll left transparent;
+	margin-left:-31px;
+	padding-left:30px;
+}
+h2,h3 {
+	font-size:14pt;
+	font-weight:lighter;
+	color:#17A2E2;
+}
+.clear_bi {
+	clear:both;
+}
+/*This class is used to center the content in the middle*/ 
+.wrapper {
+	width:980px;
+	min-width:980px;
+	margin:0 auto;
+	padding:0;
+	cursor:auto;
+}
+/*This class extends wrapper and makes it liquid and dynamic depending on the screen*/
+.liquid.wrapper {
+	width:1280px;
+}
+.body_content {
+	 margin-top: 130px;
+}
+.body_content.liquid.wrapper {
+width: 1302px;
+}
+
+
+/******Done with Defaults********/
+/* Header Section******************************************************/ 
+#header {
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	z-index:50;
+}
+#main_hd {
+	background:url("/assets/img/header_bg.jpg") repeat-x scroll 0 -47px;
+	border-bottom:1px solid #E6E6E6;
+	height:60px;
+	overflow:visible;
+}
+#logo_hd {
+	background:url("/assets/img/arrow_hd.png") no-repeat scroll right center transparent;
+	display:block;
+	float:left;
+	margin-top:5px;
+	padding-bottom:6px;
+	padding-right:46px;
+}
+/********************************** Navigation Bar*****************************************************/
+#navBar_hd {
+	display:block;
+	float:right;
+	position:relative;
+	top:15px;
+	height:31px;
+	overflow:visible;
+}
+#navBar_hd li {
+	display:block;
+	float:left;
+	margin-right:46px;
+}
+#navBar_hd li.nav_last {
+	margin:0;
+}
+#navBar_hd>li>a {
+	color:#333333;
+	font-family:MyriadWeb,'Myriad Pro','Droid Sans',Arial;
+	font-size:20px;
+	line-height:31px;
+	display:block;
+	padding:0 8px;
+	text-decoration:none;
+	text-transform:uppercase;
+}
+/**********SAFARI specific fixes************/
+.is-Safari #navBar_hd {
+	top:23px;
+}
+.is-Safari #navBar_hd>li>a {
+	padding:5px 8px 1px;
+	line-height:normal;
+}
+/*******End SAFARI fixes*************/
+#navBar_hd a:hover,#navBar_hd a.on_hover /*Sub category links*/ {
+	color:#29A8E2;
+}
+#navBar_hd a.nav_active {
+	background:#29A8E2;
+	color:#FFF;
+}
+#navBar_hd a span {
+	font-size:11px;
+	vertical-align:3px;
+}
+/*sub-cat menur*/
+#navBar_hd li.menu_sub_cat {
+	overflow:visible;
+}
+#navBar_hd li.menu_sub_cat div {
+	position:absolute;
+	background:url("/assets/img/nav_box.png") repeat-x 0 bottom #FFFFFF;
+	z-index:5;
+	display:none;
+	margin-left:-9px;
+}
+#navBar_hd li.menu_sub_cat ul {
+	border-bottom:1px solid #E6E6E6;
+	border-left:1px solid #E6E6E6;
+	border-right:1px solid #E6E6E6;
+	margin-top:14px;
+	padding:0 15px 13px;
+	position:relative;
+}
+#navBar_hd li.menu_sub_cat li {
+	border-top:1px solid lightgrey;
+	float:none;
+	margin:0;
+}
+#navBar_hd li.menu_sub_cat li a {
+	color:#666666;
+	font-size:16px;
+	line-height:32px;
+	display:block;
+	text-decoration:none;
+}
+#navBar_hd li.menu_sub_cat li a:hover {
+	color:#ED1E79;
+}
+.fade_bar {
+	background:url("/assets/img/fade_bar.png") repeat-x 0 -1px;
+	width:100%;
+	height:12px;
+}
+/********Twitter************/
+#twitt_hd {
+	color:#666666;
+	display:table;
+	width:100%;
+	font-size:11px;
+	margin-top:4px;
+}
+#twitt_hd span#tl_tw_hd {
+	color:#17A2E2;
+	float:left;
+	margin-right:3px;
+}
+#twitt_hd span a {
+	color:#000;
+}
+/***********************************End of Header section*********************************************/
+
+/*********************************** Body Section**************************************/
+#blue_hd {
+	margin-top:27px;
+	width:auto;
+	height:150px;
+	background:#29A8E2;
+	color:#fff;
+}
+/*********************************** footer Section**************************************/
+#foot_wrap {
+	border-top:#999 1px solid;
+	height:auto;
+	margin-top:30px;
+	padding-top:30px;
+	height:225px;
+}
+#footer {
+	height:auto;
+	display:block;
+}
+#footer a {
+	color:#0071BC;
+}
+#footer h2 {
+	color:#333333;
+	font-size:18px;
+	margin-bottom:4px;
+}
+#footer>div {
+	display:block;
+	float:left;
+	margin-right:70px;
+	width:216px;
+}
+#footer p,#footer li {
+	color:#333333;
+	font-size:11px;
+	line-height:16px;
+}
+#footer #fourth_ft {
+	float:right;
+	width:120px;
+	margin:0;
+}
+#footer #fourth_ft li {
+	margin-bottom:4px;
+}
+#footer #fourth_ft img {
+	margin-right:10px;
+	vertical-align:-3px;
+}
+#footer #fourth_ft ul {
+	margin:14px 0;
+}
+#first_ft li {
+	display:inline;
+	font-size:13px;
+}
+#footer ul li a {
+	color:#333333;
+}
+#footer ul li a:hover {
+	color:#0071BC;
+	text-decoration: none;
+}
+/***********************************End of footer section********************************/

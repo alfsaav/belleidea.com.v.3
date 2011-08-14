@@ -1,0 +1,52 @@
+/*----------Portfolio Control panel/Navigation------------------*/
+#page_hd{
+background: url("/assets/img/header_bg.jpg") repeat-x 0 -47px;width:100%;
+height: 40px;
+padding-top: 7px;
+border-bottom: 1px solid #E6E6E6;
+overflow:hidden;
+display:block;
+}
+/*Nav Header Key Word*/
+#page_hd h1{
+background:url("/assets/img/arrow_sub_nav.png") no-repeat right 9px transparent;
+display:block;
+float:left;
+font-size:25px;
+height:32px;
+letter-spacing:0;
+margin:0;
+padding:0 29px 0 0;
+text-transform:uppercase;
+}
+
+/*----------Portfolio Control panel/Tabs------------------*/
+#table_menu {
+    background-color:#E6E6E6;
+	border-bottom:1px solid lightBlue;
+	float: left;
+    padding: 13px 0;
+    width: 980px;
+	position:relative;
+	display:none;
+	
+}
+#gall_hd
+{
+font-size:17px;
+letter-spacing:-0.9px;
+margin:10px 0 5px;
+text-transform:uppercase;
+word-spacing:6px;
+}
+
+#current_pic_bi
+{
+color:#000;	
+margin-right:3px;
+}
+#total_pics_bi
+{
+margin-left:3px;	
+}
+
