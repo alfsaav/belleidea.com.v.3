@@ -19,9 +19,9 @@ return array
 			 new mysqli('localhost','belleide_alfsaav','jesus9284','belleide_gallery');
 			 */
 			'hostname'   => 'localhost',
-			'database'   => '_bi_gallery',
-			'username'   => 'alfredo',
-			'password'   => 'Y6SVVmyGqF54UXnw',
+			'database'   => '********',
+			'username'   => '********',
+			'password'   => '********',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',
