@@ -3,8 +3,9 @@ $(document).ready(function(){
 		//Setting up image slider
 		Pic_Slider.init({gall_holder:'#web_gallery',
 				 gal_height:'500',
-				 full_screen:false,
-				 automatic:false});
+                 gal_width:'100%',
+				 full_screen:true,
+				 automatic:true});
 		
 		//Setting Function Callback when Picture changes
 		Pic_Slider.PIC_Changed = function(){

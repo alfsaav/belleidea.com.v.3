@@ -12,7 +12,7 @@
 <div id="header"> 
      <div id="main_hd"> 
 	 
-		<div class="liquid wrapper">
+		<div class="wrapper">
 
               <a id="logo_hd" href="/"><img src="/assets/img/main_logo.png" alt="Belle Idea" ></a>                                        
 
@@ -96,7 +96,7 @@
      <?php 
      //Sub Page nav header
      if(isset($page_hd)){ 
-        echo $page_hd;
+        echo '<div id=\'page_hd\'>'.$page_hd.'</div>';
      }
      ?>
      <!-- Fade Bar, is a png gradient span across the page, to simulate a fading effect as users scroll -->

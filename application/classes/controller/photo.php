@@ -49,7 +49,7 @@ class Controller_Photo extends Controller_MasterTemplate {
         $photo_header['title'] = 'Photography'; //Title of page
 		//Rendering HTML block
         $page_hd['page_hd'] = View::factory('blocks/collection_header',$photo_header)->render(); //Add Header
-        $this->template->header  = View::factory('templates/header',$page_hd); //Loading vars for header
+        $this->template->header = View::factory('templates/header',$page_hd); //Loading vars for header
 		
         //----<MAIN CONTENT>---
         //Main Content
@@ -59,25 +59,8 @@ class Controller_Photo extends Controller_MasterTemplate {
        
 		
     }//End of index
-	
-    public function action_index_1()
 
-	{
 
-	    $this->template->title   = 'Gallery';
-
-        $this->template->styles = array('assets/css/photo-cont-thumbs.css' => 'screen');
-
-       // $this->template->scripts = array("assets/js/serv_bi.js");
-
-        $this->template->content = View::factory('pages/collection_1');
-
-        
-
-    }
-
-    
-    
 	public function action_gallery()
 	{
 		$fire = Fire::instance();    
@@ -111,19 +94,19 @@ class Controller_Photo extends Controller_MasterTemplate {
 							  );
 		
 		$gall_html = $this->thumbs_factory($th_params); //Get Thumbs HTML
+
+        //----<HEADER>-----
+        //Photo Header Content
 		
-		 
-		//Gallery Header Content
-		$gallery_header['title'] = $gall['title']; //Title of page
-		$gallery_header['n_pics'] = $gall['n_pics']; //Title of page
+        $photo_header['title'] = $gall['title']; //Title of Gallery
+		//Rendering HTML block
+        $page_hd['page_hd'] = View::factory('blocks/collection_header',$photo_header)->render(); //Add Header
+        $this->template->header = View::factory('templates/header',$page_hd); //Loading vars for header
+        
+        $photo['content']   = $gall_html;
 		
 		//Photo Slider Content
 		$slider['json'] = json_encode($gall); //JSON Object for javascript
-		
-		//Photo Content	
-        $photo['header'] = View::factory('blocks/gallery_header',$gallery_header)->render(); //Add Header
-        $photo['content']   = $gall_html;
-		
 		
 		//Render Content in template
 		$this->template->pg_scripts = View::factory('scripts/php_json', $slider)->render(); //Add Slider	JSON variable
@@ -131,38 +114,7 @@ class Controller_Photo extends Controller_MasterTemplate {
 	
 	}//End of gallery
 	
-	public function action_image()
-	{
-	}//End of image
-	
 ##Helper Gallery Methods
-	
-	##
-	#Collection Processor
-	##
-	public function process_colls($coll, $show)
-	{
-	//Get info from collection   
-    $coll_id = $coll['collection_id'];
-    $coll_slug = $coll['slug_id'];  
-     //get collcetion from database  
-    $coll_v = $this->gallery->getCollection($coll_id); //Fashion
- 
-    //Get Thumbs HTML
-	$params = array ( 'id_alias' => 'collection',
-					  'id' => $coll_slug,
-					  'thumbs' => $coll_v['collection'],
-					  'link_root' => '/photo/gallery/',
-					  'thumb_size' => 172,
-					  't_tip_size' => 230,
-					  'show' => $show,
-					  'type' => 'gallery'
-					  );
-	
-	return $this->thumbs_factory($params); //Get Thumbs HTML
-	
-	}//End of Method
-
 	##
 	#Thumbnail Generator
 	##

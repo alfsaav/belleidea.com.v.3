@@ -1,9 +1,10 @@
+//ENVIROMENT LIBS
+
 //Cufon engine replacing font to selectors below
 //Cufon.replace('h1,h2,h3'); // Works without a selector engine 
 /*Custom Jquery Code*/
 //Returns whether selector exixts or not
 jQuery.fn.exists = function(){return jQuery(this).length>0;}
-
 //Slug Generator
 bi_slug = function(slug) {
     var slugcontent = slug;
@@ -12,16 +13,9 @@ bi_slug = function(slug) {
 	finishedslug = finishedslug.toLowerCase();
 	return finishedslug;
 };
-
+//END ENVIROMENT LIBS 
 
 $(document).ready(function() {
-
-//Check for Safari Browser
-
-var bname = navigator.userAgent;
-if(/safari/i.test(bname) && !/chrome/i.test(bname) ){ 
-$('html').addClass('is-Safari'); //Add Class to html tag to add specific CSS rules for Safari browser
-};
 
 //Control which tab is on
 var my_nav_link = $('#nav_link').val();;
@@ -62,12 +56,22 @@ $("li.menu_sub_cat").each(function(i){
 		);
    });
 
-//end of 'Doc Ready?'
+//Check for Window Resize to update Zise of site: 
+if ($(window).width() > 1280){
+   $('body').addClass('liquid'); 
+}
+$(window).resize(function() {
+  
+    if ($(this).width() > 1280){
+      $('body').addClass('liquid');
+    }else{
+      
+      $('body').removeClass('liquid');  
+    }
+
 });
 
+    
 
-function close_header(){
-	  $("li.menu_sub_cat a span").html("&#9650;");
-	  $("li.menu_sub_cat div").hide();
-	  $("#main_hd").stop(true).animate({'height':'74px'}, 300, 'linear');
-}
+//end of 'Doc Ready?'
+});

@@ -1,5 +1,5 @@
 <!-- Photography Collections -->
-<div class="wrapper liquid body_content"> 
+<div class="wrapper body_content"> 
 <?php
 //Debugger
 $fire = Fire::instance(); 
@@ -31,12 +31,13 @@ foreach($collections as $key => $coll){
 			$height_th = $dim_1;
 			$width_th = $height_th/$ratio;
 		}
-
+     /* //Depracated func
      $img_in_row = 3;
-        $last = '';   
+     $last = '';   
             if ($key%$img_in_row === $img_in_row-1 ){
                 $last='last';    
             }
+     */   
         //Set link url
         $url = $base_url.$thumb['slug_id'];
         //Data params for html
@@ -45,17 +46,14 @@ foreach($collections as $key => $coll){
                             $height_th,        //3
                             $thumb['url_m'],   //4 
                             $thumb['title'],   //5 
-                            $thumb['n_pics'],  //6
-                            $last,             //7
-                            $url               //8   
+                            $url               //6
                             );
     	
-        $myThumbs .= vsprintf('<a id="img_%1$s" class="bi-collection thumb %7$s" href="%8$s">
+        $myThumbs .= vsprintf('<a id="img_%1$s" class="bi-collection thumb" href="%6$s">
                                    <img id="img_%1$s" width="%2$d" height="%3$d" src="%4$s" alt="%5$s"/>
                                     <div class="caption">
                                         <h2>%5$s</h2>
                                         <div class="meta">
-                                            <span class="n_pics">%6$s</span>
                                             <span class="date">06.20.2011</span>
                                         </div>
                                     </div>

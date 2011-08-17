@@ -105,7 +105,7 @@ margin: 11px;
 overflow: hidden;
 position: relative;
 width: 300px;
-background:#000;
+background-color:#000;
 cursor:pointer;
 }
 
@@ -128,23 +128,32 @@ position:absolute;
 bottom:0;
 left:0;
 width:65%;
-/*
--webkit-transition: bottom;
--webkit-transition-timing-function: ease-in;
--webkit-transition-duration: 250ms;
-*/
 }
 .bi-collection img{
 position: absolute;
 -webkit-transform: scale(1);
 -webkit-transition-timing-function: ease-out;
--webkit-transition-duration: 500ms;
+-webkit-transition-duration: 200ms;
+
+-moz-transform: scale(1);
+-moz-transition-timing-function: ease-out;
+-moz-transition-duration: 200ms;
+
+-ms-transform: scale(1);
+
 }
 a:hover.bi-collection img{
 opacity:0.70;
 -webkit-transform: scale(1.05);
 -webkit-transition-timing-function: ease-out;
--webkit-transition-duration: 500ms;
+-webkit-transition-duration: 200ms;
+
+-moz-transform: scale(1.05);
+-moz-transition-timing-function: ease-out;
+-moz-transition-duration: 200ms;
+
+-ms-transform: scale(1.05);
+
 }
 .bi-collection h2{
 background:#4D4D4D;
@@ -152,11 +161,12 @@ color: #fff;
 display: inline;
 font-size: 26px;
 font-weight: bold;
-line-height: 24px;
+line-height: 25px;
 padding-right: 6px;
 position: relative;
 text-transform: uppercase;
 top: -3px;
+font-family:Arial;
 }
 .bi-collection .meta{
 width:50%

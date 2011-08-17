@@ -53,7 +53,9 @@
             $this->template->styles           = array();
 
             $this->template->scripts          = array();
-
+            
+            $this->template->user_agent       = '';
+            
 			$this->template->pg_scripts       = '';
 
           }
@@ -104,7 +106,10 @@
 
              // Add defaults to template variables.
 
- 
+              //Detecting User Agent 
+              
+              $this->template->user_agent  =  Request::user_agent(array('browser', 'version',  'mobile'));
+                 
               if (empty($this->template->header))
               {
                $this->template->header  = View::factory('templates/header'); 

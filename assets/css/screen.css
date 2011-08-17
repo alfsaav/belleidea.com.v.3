@@ -84,15 +84,15 @@ h2,h3 {
 	padding:0;
 	cursor:auto;
 }
-/*This class extends wrapper and makes it liquid and dynamic depending on the screen*/
-.liquid.wrapper {
-	width:1280px;
-}
 .body_content {
 	 margin-top: 130px;
 }
-.body_content.liquid.wrapper {
-width: 1302px;
+/*The liquid class extends wrapper and makes it liquid and dynamic depending on the screen*/
+body.liquid .wrapper {
+	width:1280px;
+}
+body.liquid .wrapper {
+width: 1298px;
 }
 
 

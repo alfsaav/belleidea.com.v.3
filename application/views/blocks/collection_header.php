@@ -1,6 +1,4 @@
-<div id="page_hd"> 
-
-	<div class="liquid wrapper">
+<div class="wrapper">
       <!--First block-->
       <h1>
       <?php echo $title;?> <!--Photography-->
@@ -19,5 +17,4 @@
          <li><a href="#abstract" class="bi_coll">abstract</a></li>
 
       </ul>          
-	</div>
-</div><!--End of port_hd-->
+</div>

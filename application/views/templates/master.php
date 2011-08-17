@@ -52,8 +52,20 @@
 
   </head>
 
-  <body>
-
+  <?php
+    //Adding a UserAgent Class to main body for CSS exceptions
+           $browser = strtolower ($user_agent['browser']); 
+           if(preg_match("/internet explorer/",$browser) !== 0){
+            
+            $browser = "ie".$user_agent['version'];
+            
+           }
+           
+           $browser .= ($user_agent['mobile'])? " mobile" : "";
+  ?>
+  
+  <body class="<?php echo $browser; ?>" >
+        
      <?php echo $header;?>
 
      <?php echo $content;?>
