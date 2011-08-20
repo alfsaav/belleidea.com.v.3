@@ -41,6 +41,7 @@
 /*Thumbnails*/
 .thumb_container{
     display:none;
+    margin: 20px 0;
 }
 /*Passive thumbs*/
 .thumb{

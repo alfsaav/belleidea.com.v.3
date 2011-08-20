@@ -66,8 +66,7 @@ class Controller_Photo extends Controller_MasterTemplate {
 		$fire = Fire::instance();    
     			
 	    $this->template->title   = 'Gallery';
-        $this->template->styles = array('assets/css/photo-cont-thumbs.css' => 'screen',
-                                        'assets/css/scrolling.css' => 'screen'
+        $this->template->styles = array('assets/css/photo-cont-thumbs.css' => 'screen'
                                         );
         $this->template->scripts = array_reverse(array("assets/js/address.js",
                                                        "assets/js/jquery.tools.min.js",
@@ -89,8 +88,7 @@ class Controller_Photo extends Controller_MasterTemplate {
 							  'link_root' => '#pic=',
 							  'thumb_size' => 172,
 							  't_tip_size' => 230,
-							  'show' => true,
-							  'type' => 'image'
+							  'show' => true
 							  );
 		
 		$gall_html = $this->thumbs_factory($th_params); //Get Thumbs HTML
@@ -131,7 +129,6 @@ class Controller_Photo extends Controller_MasterTemplate {
 							'thumb_size' => 172,
 							't_tip_size' => 230,
 							'show' => 'true',
-							'type' => 'gallery' //gallery of IMAGEs, or collection of GALLERYs
 		);
 		//Merging Settings
 		$params = array_merge($defaults, $options );
@@ -144,7 +141,6 @@ class Controller_Photo extends Controller_MasterTemplate {
 		//Setting dimension scale   
 		$dim_1 = $params['thumb_size'];
 		$dim_2 = $params['t_tip_size'];
-		$type = $params['type'];		
 		
 		//Hide or show container
 		if ($show){
@@ -182,28 +178,16 @@ class Controller_Photo extends Controller_MasterTemplate {
 			
 			//Thumbnail Pattern
 			
-			if ($type === 'gallery'){
-			$child_link = $link.$set['slug_id'].'/';
-			$thumb_data_1 = array($set['slug_id'],$width_th,$height_th,$set['url_s']);
-			$thumb_data_2 = array(
-								  $set['slug_id'], $child_link, $width_tip, $height_tip, 
-								  $set['url_s'],"<p>{$set['title']}</p>","<span>{$set['n_pics']} Pics</span>"
-								  );
-			
-			}else{ //image
-			
             $child_link = $link.($key+1);
 			$thumb_data_1 = array($set['id'],$width_th,$height_th,$set['url_s']);
 			$thumb_data_2 = array(
 								  $set['id'], $child_link, $width_tip, $height_tip, 
 								  $set['url_s'],'',''
 								  );
-            }
-            
             $img_in_row = 10;
             
-            if ($type === 'image' AND $key%$img_in_row === 0 )
-            $myThumbs .= '<div>';
+            //if ($type === 'image' AND $key%$img_in_row === 0 )
+            //$myThumbs .= '<div>';
             
 			$myThumbs .= sprintf('<div class="thumb">%1$s %2$s </div>',
 			vsprintf('<div class="image_cont" id="div_%1$s">
@@ -220,8 +204,8 @@ class Controller_Photo extends Controller_MasterTemplate {
             
             $fire->log(sprintf('key: %1$s , mod:%2$s',$key,$key%6));
             
-           	if ($type === 'image' AND $key%$img_in_row === $img_in_row-1 )
-            $myThumbs .= '</div>';
+           	//if ($type === 'image' AND $key%$img_in_row === $img_in_row-1 )
+            //$myThumbs .= '</div>';
 			
 		} //End of Foreach
 

@@ -87,6 +87,12 @@ h2,h3 {
 .body_content {
 	 margin-top: 130px;
 }
+
+.wrapper.thumbs {
+width: 1001px;
+overflow:auto;
+}
+
 /*The liquid class extends wrapper and makes it liquid and dynamic depending on the screen*/
 body.liquid .wrapper {
 	width:1280px;
@@ -94,6 +100,12 @@ body.liquid .wrapper {
 body.liquid .wrapper {
 width: 1298px;
 }
+/*Exception for Thumbnails*/
+body.liquid .wrapper.thumbs {
+width: 1201px;
+}
+
+
 
 
 /******Done with Defaults********/

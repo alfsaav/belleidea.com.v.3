@@ -61,10 +61,7 @@ $(document).ready(function(){
 			$('html, body').animate({scrollTop:pos_y}, 'slow');
 			e.preventDefault();
 		});
-		  
-        
-        $("#scrollable").scrollable({'circular':'true'});  
-     
+       
 		//Init Thumbs 
 		//id = $('.thumb_container:first').attr('id');
 		BI_thumbs.init();	
