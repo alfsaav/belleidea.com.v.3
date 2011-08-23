@@ -5,19 +5,31 @@ $(document).ready(function(){
 				 gal_height:'500',
                  gal_width:'100%',
 				 full_screen:true,
-				 automatic:true});
-		
-		//Setting Function Callback when Picture changes
+				 automatic:true,
+                 timer_prd:5000
+                 });
+	
+		//When pic_slider obj is finished loading, hide and remove hidden class
+        Pic_Slider.GALL_Loaded = function(){
+             var slider_holder = Pic_Slider.get_holder();
+            slider_holder.hide()
+                         .removeClass('hidden');
+        
+        }
+        //Setting Function Callback when Picture changes
 		Pic_Slider.PIC_Changed = function(){
 			 var gall_meta =  Pic_Slider.meta_data //Gallery meta data obj
 			 
 			 //Updating nav menu meta data
 			 $('#current_pic_bi').text(gall_meta.index);
 			 
-			 $.address.queryString('pic='+ gall_meta.index);
+			 //$.address.queryString('pic='+ gall_meta.index);
 		 }
-		//When site address bar is first intiatiated 
-		$.address.init(function(e) {
+		
+        Pic_Slider.load_php_json(BI_GLOBAL.pics,1); //BI_GLOBAL coming from PHP_JS view
+        //When site address bar is first intiatiated 
+		/*
+        $.address.init(function(e) {
 		
 			if(window.location.hash == '' || typeof e.parameters.pic == 'undefined' ){
 		 	
@@ -34,38 +46,76 @@ $(document).ready(function(){
 		 }
 		
 		}); //End of Int listener
-		
-		$('#image_gallery .thumb_tip').click(function(e){
+		*/
+		//Thumbnails Listeners - When thumb is clicked Slider will open on the selected pic
+        $('#image_gallery .thumb_tip').click(function(e){
 				var index = $(this).attr('href');
 				index  = index.match(/(\d+)/)[1];
-				
-				//BI_thumbs.show_thumbs('#holder_wrap_bi');//Shows Container based on id
-				
-				Pic_Slider.go_to_pic(index);
-				
-				var pos_y = $('#holder_wrap_bi').position().top -100;
-				$('html, body').animate({scrollTop:pos_y}, 1000, function(){
-								
-				});
-				
-				
-				
-				e.preventDefault();
+			    $('#gall_nav .slider').trigger('click');
+                
+                Pic_Slider.go_to_pic(index);
+		      
+              e.preventDefault();
 		});
-		
-		$('#thumb_tggl a').click(function(e){
-			
-			var id = $(this).attr('href');
-			//BI_thumbs.show_thumbs(id);//Shows Container based on id
-			var pos_y = $(id).position().top -100;
-			$('html, body').animate({scrollTop:pos_y}, 'slow');
-			e.preventDefault();
-		});
-       
-		//Init Thumbs 
-		//id = $('.thumb_container:first').attr('id');
-		BI_thumbs.init();	
-		
-		
+        
+        //Navigation Listeners
+        //Gallery Views
+        $('#gall_nav .slider,#gall_nav .thumbs').click(function(e){
+          
+          e.preventDefault();
+          if(!$(this).hasClass('active')){  //Check that is not active    
+                
+                if($(this).hasClass('slider')){
+                    
+                    BI_thumbs.show_thumbs('#holder_wrap_bi');//Shows Container based on id
+                
+                }else{
+                    BI_thumbs.show_thumbs('#image_gallery');
+                    
+                }
+                if($(this).attr('class') === 'slider'){
+                  $('#gall_nav .sl-mode').fadeIn('1000');  
+                }else{
+                  $('#gall_nav .sl-mode').fadeOut('300');
+                }
+                
+                $('#gall_nav .slider,#gall_nav .thumbs').toggleClass('active');
+          }      
+                
+                
+        });
+        //Automatic Play Listeners
+        $('#gall_nav .play,#gall_nav .pause').click(function(e){
+          e.preventDefault();
+          if(!$(this).hasClass('active')){  //Check that is not active   
+                
+                if($(this).hasClass('play')){
+                  Pic_Slider.timer(true);  
+                }else{
+                  Pic_Slider.timer(false);
+                }
+                $('#gall_nav .play,#gall_nav .pause').toggleClass('active');
+         }       
+        });
+        
+        //Full Screen Button
+         $('#gall_nav .full_screen').click(function(e){
+             Pic_Slider.full_screen();
+        })
+
+             
+     //Init Thumbs >> Initializes thumb tooltips; 
+	   	BI_thumbs.init();
+       /* $('#image_gallery .image_cont').hover(
+                                                function(){
+                                                   $(this).stop(true,true).effect("scale", { percent: 150}, 500);
+                                                          },
+                                                function(){
+                                                   $(this).stop(true,true).effect("scale", { percent: 100}, 500); 
+                                                });
+       */
+        $('#gall_nav .thumbs').addClass('active');
+        $('#gall_nav .play').addClass('active');	
+  
 		
 }); //End of Doc Ready  

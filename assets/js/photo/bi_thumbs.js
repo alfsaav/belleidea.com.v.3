@@ -33,18 +33,19 @@ init:function(id){
 			var padd_x = parseFloat(thumb.css('padding-left'))/2; 
 			
 			//Final thumb position
-			pos_x = init_pos.left - (w_fin - w_ini)/2 - padd_x; 
+		
+            pos_x = init_pos.left - (w_fin - w_ini)/2 - padd_x; 
 			pos_y = init_pos.top - (h_fin - h_ini)/2 - padd_y; 
-			
+            
 			//Updating position 
 			thumb
 			.css({'z-index' : '10',
 				'position':'absolute',
 				'width':w_fin,
-				'left':pos_x,
-				'top':pos_y
+				'left': pos_x, 
+				'top': pos_y
 			}) 
-			.stop(true,true).show();       
+			.stop(true,true).show().effect("size", {origin:['middle','center'],from:{'width': w_ini,'height': h_ini}, to: {'width': w_fin,'height': h_fin} }, 200);      
 			
 			
 		}, function() {
@@ -66,8 +67,19 @@ init:function(id){
 
 		
 		//Hide all containers
-		$('.photo_elem').hide();
-		
+        if($('.photo_elem.active').attr('id') === 'holder_wrap_bi'){
+             
+             $('#holder_wrap_bi').css({'position':'absolute'}).animate({'opacity':0,'top':-150},750,function(){                    
+                    $(this).hide();
+                    $(this).css({'position':'relative'})
+             })
+            
+        }else{
+            $('.photo_elem.active').hide();
+        }
+        
+        $('.photo_elem.active').removeClass('active');
+        		
 		if(animate){
 			
 			//Get thumbnails of this collection
@@ -81,7 +93,7 @@ init:function(id){
 				var show_thumb = function(){
 					$(thumb).css({'visibility': 'visible','opacity':'0'}).animate({'opacity':'1'},500);
 				}
-				var my_random = Math.floor(Math.random() * 1000) + 500;
+                var my_random = Math.floor(Math.random() * 1000) + 500;
 				//Delaying animation               
 				setTimeout(show_thumb,my_random);    
 				
@@ -90,10 +102,24 @@ init:function(id){
 			$(id).show('slow');  
 		}
 		else{
-			//Just show the darn elem
-			$(id).show(); 
 			
-		}
+            //Just show the darn elem
+	   if(id === "#holder_wrap_bi"){
+             
+                /*$(id).css({'visibility': 'visible','top':-150,'opacity':0,'display':'block'})
+                .animate({'opacity':1,'top':0},500);
+                */
+                $(id).css({'visibility': 'visible','top':0,'opacity':1})
+                .show();                       
+                
+            }else{
+            
+            $(id).show();
+            
+            } 
+	    }
+        
+        $(id).addClass('active');
 		
 		
 	},//End of show_thumbs func 	 	

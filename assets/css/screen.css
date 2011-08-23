@@ -86,6 +86,7 @@ h2,h3 {
 }
 .body_content {
 	 margin-top: 130px;
+     position:relative;
 }
 
 .wrapper.thumbs {
@@ -158,6 +159,10 @@ width: 1201px;
 	text-decoration:none;
 	text-transform:uppercase;
 }
+#navBar_hd li.nav_last a {
+ padding-right: 0;   
+}
+
 /**********SAFARI specific fixes************/
 .is-Safari #navBar_hd {
 	top:23px;
@@ -301,3 +306,5 @@ width: 1201px;
 	text-decoration: none;
 }
 /***********************************End of footer section********************************/
+
+

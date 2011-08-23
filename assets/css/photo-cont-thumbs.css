@@ -1,43 +1,6 @@
 /* Photo Thumbnails Styles */
 
-/*Sub Nav*/
-#page_hd ul{
-	display:block;
-	float:left;
-	height:32px;
-	margin-left:11px;
-	position:relative;
-}
-#page_hd ul li {
-    display: block;
-    float: left;
-    margin-right: 5px;
-}
-#page_hd ul li.nav_last{
-	margin:0;
-}
-#page_hd ul li a,
-#page_hd ul li a:visited{
-	color: #999;
-    display: block;
-    font-family: MyriadWeb,'Myriad Pro','Droid Sans',Arial;
-    font-size: 18px;
-    height: 24px;
-    line-height: 31px;
-    margin: 0 10px;
-    padding-bottom: 5px;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-#page_hd ul li a:hover {
-	
-	color:#29A8E2;
-}
-#page_hd ul li a.port_its_on,
-#page_hd ul li a:hover.port_its_on{
- color:#1A1A1A;
- border-bottom:3px solid #29A8E2;
-}
+
 /*Thumbnails*/
 .thumb_container{
     display:none;
@@ -63,10 +26,8 @@
 .thumb_tip{
     display:none;
     cursor: pointer;
-    background-color: #fff;
-    padding: 12px;
-    border:1px solid #EEEEEE;
-    -moz-box-shadow: 3px 3px 10px #C4C4C4;
+    border:9px solid white;
+     -moz-box-shadow: 3px 3px 10px #C4C4C4;
     -webkit-box-shadow: 3px 3px 10px #C4C4C4;
     box-shadow: 3px 3px 10px #C4C4C4;
 }
@@ -75,7 +36,8 @@ a.thumb_tip:hover{
 }
 
 .thumb_tip img{
-    border:1px solid  #E6E6E6;
+   
+    /*border:1px solid  #E6E6E6;*/
 }
 .thumb_tip p{
     color: black;

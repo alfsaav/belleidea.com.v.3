@@ -88,18 +88,11 @@
 
                                              );
 
-             $scripts                 = array('https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-
-                                              'assets/js/cufon-yui.js',
-
-                                              'assets/js/DroidSans_400-DroidSans_700.font.js',
-
+             $scripts                 = array('https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js',
+                                              'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js', 
                                               'assets/js/jquery.tweet.js',
-
                                               'assets/js/default.js',
-
                                               'assets/js/default_last.js' 
-
                                              );
 
 

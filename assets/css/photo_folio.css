@@ -15,10 +15,122 @@ float:left;
 font-size:25px;
 height:32px;
 letter-spacing:0;
-margin:0;
+margin: 0 17px 0 0;
 padding:0 29px 0 0;
 text-transform:uppercase;
 }
+
+#page_hd h2 {
+    display: block;
+    float: left;
+    font-size: 21px;
+    height: 32px;
+    line-height: 32px;
+    width: 400px;
+}
+/*Gallery Navigation Btns*/
+#gall_nav{
+    float: right;
+    height: 47px;
+    margin-top: -7px;
+    width: 500px;
+    border-right: 1px solid #E6E6E6;
+}
+#gall_nav a{
+    background:url("/assets/img/gallery_btns.png") no-repeat;
+    display:block;
+    float:right;
+    width:47px;
+    height:47px;
+    border-left: 1px solid #E6E6E6;
+}
+/*Nav Buttons*/
+
+
+#gall_nav a.full_screen{
+    background-position:11px 14px;
+}
+#gall_nav a:hover.full_screen{
+    background-position:11px -38px;  
+}
+#gall_nav a.play{
+    background-position:-85px 14px;    
+}
+#gall_nav a:hover.play,
+#gall_nav a.active.play {
+    background-position:-85px -38px;  
+}
+#gall_nav a.pause{
+    background-position:-37px 14px;    
+}
+#gall_nav a:hover.pause,
+#gall_nav a.active.pause {
+    background-position:-37px -38px;  
+}
+#gall_nav a.thumbs{
+    background-position:-179px 14px    
+}
+#gall_nav a:hover.thumbs,
+#gall_nav a.active.thumbs {
+    background-position:-179px -38px;  
+}
+#gall_nav a.slider{
+    background-position:-132px 14px    
+}
+#gall_nav a:hover.slider,
+#gall_nav a.active.slider {
+    background-position:-132px -38px;  
+}
+#gall_nav a.sl-mode{
+display:none; 
+}
+
+
+/*Collection Navigation menu*/
+/*Sub Nav*/
+#page_hd ul{
+	display:block;
+	float:left;
+	height:32px;
+	position:relative;
+}
+#page_hd ul li {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+#page_hd ul li.nav_last{
+	margin:0;
+}
+#page_hd ul li a,
+#page_hd ul li a:visited{
+	color: #999;
+    display: block;
+    font-family: MyriadWeb,'Myriad Pro','Droid Sans',Arial;
+    font-size: 18px;
+    height: 24px;
+    line-height: 31px;
+    margin: 0 10px;
+    padding-bottom: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#page_hd ul li a:hover {
+	
+	color:#29A8E2;
+}
+#page_hd ul li a.port_its_on,
+#page_hd ul li a:hover.port_its_on{
+ color:#1A1A1A;
+ border-bottom:3px solid #29A8E2;
+}
+
+/*Thumbs Container*/
+
+#image_gallery{
+  padding-top: 20px;
+}
+
 
 /*----------Portfolio Control panel/Tabs------------------*/
 #table_menu {
@@ -44,6 +156,7 @@ word-spacing:6px;
 {
 color:#000;	
 margin-right:3px;
+margin-left: 15px;
 }
 #total_pics_bi
 {

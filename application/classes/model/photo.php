@@ -36,11 +36,15 @@ class Model_Photo extends Model_Database
 	
 	//$fire = Fire::instance();  
     //Get Gallery Information
-	$sql = "  SELECT `photoset_id` as `id`, `title`, `n_pics`
-			  FROM `photoset`
-			  WHERE `slug_id` = '$id'
-			  LIMIT 1";
-					  
+	
+    $sql = "  SELECT `set`.`photoset_id` as `id`, `set`.`title` as `title`, `set`.`n_pics`,`coll`.`title` as `parent_title`
+              FROM `photoset`as `set` 
+              NATURAL JOIN `set-has-col` as `s_c`
+              JOIN `collection` as `coll`
+              ON `coll`.`collection_id` = `s_c`.`collection_id`
+              WHERE `set`.`slug_id` = '$id'
+              LIMIT 1";
+ 					  
 	$gall_info = $this->_db->query(Database::SELECT, $sql,FALSE)->as_array();
 	$gall_info = $gall_info[0];
 	

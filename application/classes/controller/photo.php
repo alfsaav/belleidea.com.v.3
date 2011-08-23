@@ -68,9 +68,9 @@ class Controller_Photo extends Controller_MasterTemplate {
 	    $this->template->title   = 'Gallery';
         $this->template->styles = array('assets/css/photo-cont-thumbs.css' => 'screen'
                                         );
-        $this->template->scripts = array_reverse(array("assets/js/address.js",
-                                                       "assets/js/jquery.tools.min.js",
-													   "assets/js/light_box.js",
+        $this->template->scripts = array_reverse(array(//"assets/js/address.js",
+                                                      // "assets/js/jquery.tools.min.js",
+													  // "assets/js/light_box.js",
 													   "assets/js/photo/bi_img_slider.js",
 													   "assets/js/photo/bi_thumbs.js",
 													   "assets/js/photo/gallery_pg.js"));
@@ -81,6 +81,8 @@ class Controller_Photo extends Controller_MasterTemplate {
 		$gallery = new Model_Photo;
 		$gall = $gallery->getPhotos($set_id);
 		
+        //$fire->log($gall);
+        
 		//Get Thumbs HTML
 		$th_params = array (  'id_alias' => 'image',
 							  'id' => 'gallery',
@@ -96,9 +98,14 @@ class Controller_Photo extends Controller_MasterTemplate {
         //----<HEADER>-----
         //Photo Header Content
 		
-        $photo_header['title'] = $gall['title']; //Title of Gallery
+        
+        $_gall_par_title = ( preg_match("/^fashion/i",$gall['parent_title']) === 0 )? $gall['parent_title'] : "Fashion";
+
+        $photo_header['title'] = $gall['title'] ; //Title of Gallery
+        $photo_header['parent_title'] = $_gall_par_title; //Title of Parent Collection
+        $photo_header['n_pics'] = $gall['n_pics']; //Title of Gallery
 		//Rendering HTML block
-        $page_hd['page_hd'] = View::factory('blocks/collection_header',$photo_header)->render(); //Add Header
+        $page_hd['page_hd'] = View::factory('blocks/gallery_header',$photo_header)->render(); //Add Header
         $this->template->header = View::factory('templates/header',$page_hd); //Loading vars for header
         
         $photo['content']   = $gall_html;
@@ -202,19 +209,10 @@ class Controller_Photo extends Controller_MasterTemplate {
 			$thumb_data_2)
 			);
             
-            $fire->log(sprintf('key: %1$s , mod:%2$s',$key,$key%6));
-            
            	//if ($type === 'image' AND $key%$img_in_row === $img_in_row-1 )
             //$myThumbs .= '</div>';
 			
 		} //End of Foreach
-
-		//Wrapp thumbs witn div container
-		$myThumbs = sprintf('<div id="%1$s_%2$s" 
-							class="thumb_container photo_elem items" 
-							style="display:%3$s">'.$myThumbs
-	                       	.'</div>',$id_alias, $id,$display); //Add Id and display mode. 
-		
 		
 		return  $myThumbs;    
 	}//End of Method

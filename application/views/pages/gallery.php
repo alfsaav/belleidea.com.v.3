@@ -1,15 +1,11 @@
 <!-- Photography Collections -->
 <div class="body_content"> 
 <!-- Photo Slider comes here -->
-<div id="web_gallery" class="photo_elem" style="visibility:hidden; position:absolute;"> </div>
+<div id="web_gallery" class="photo_elem hidden"> </div>
 
-<div class="wrapper thumbs">
-    <!--Nav between views-->
-<!--
-    <a class="prev">prev</a><a class="next">next</a>
--->
-    <!-- Photo Thumbnails -->
-    <?php echo $content;?>  
+<!-- Photo Thumbnails -->
+<div id="image_gallery" class="wrapper thumbs photo_elem active">
+    <?php echo $content;?>
 </div>
 
 </div>

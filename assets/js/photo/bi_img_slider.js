@@ -7,26 +7,26 @@ If there is less than 2 pics? what happens?
 var PORTF_FLICK = { 
 	api_key: '59f274e3514f672180c069409c7b745f',
     secret: '27e29ce1c6485b75',
-    user_id:'47320488@N04'
-}
+    user_id: '47320488@N04'
+};
 
 //--------This Object fetches the images from Flickr using JSon---------///
 
 var Pic_Slider = {
 
-defaults:{
+    defaults: {
 
-		gall_holder:'#holder_wrap',
+		gall_holder: '#holder_wrap',
 
-		container:'#img_holder',
+		container: '#img_holder',
 
 		gAnalytics: false, //Google analytics tracking gallerie calls
 
-		url_context:'', //url context page that will be based of the tracking url page
+		url_context: '', //url context page that will be based of the tracking url page
 
-		photoset:'',
+		photoset: '',
 
-		selector:'',
+		selector: '',
 
 		gal_width:'980',
 
@@ -50,7 +50,7 @@ defaults:{
 
 	gall_pos: [],
 
-	my_pics:[],
+	my_pics: [],
 
 	//Timer vars	
 
@@ -206,15 +206,23 @@ init: function(options){
 
 		//Defaulting all vals to ints
 
-		if (_self.defaults.gal_width.search('/\%/') !== -1 ){ //Checking for relative vals
-           self.defaults.gal_width = parseInt(_self.defaults.gal_width);
+        if(typeof(_self.defaults.gal_width) === 'string'){
+	   	   if (_self.defaults.gal_width.search(/\%/) === -1 ){ //Checking for relative vals
+            _self.defaults.gal_width = parseInt(_self.defaults.gal_width);
+            }
+        }else{
+            _self.defaults.gal_width = parseInt(_self.defaults.gal_width);
         }
-    	if (_self.defaults.gal_height.search('/\%/') !== -1){ //Checking for relative vals
-        _self.defaults.gal_height = parseInt(_self.defaults.gal_height);
+    	if(typeof(_self.defaults.gal_height) === 'string'){
+            if (_self.defaults.gal_height.search(/\%/) === -1){ //Checking for relative vals
+            _self.defaults.gal_height = parseInt(_self.defaults.gal_height);
+            }
+        }else{
+            _self.defaults.gal_height = parseInt(_self.defaults.gal_height);
         }
+        
 		_self.defaults.timer_prd = parseInt(_self.defaults.timer_prd);
-
-		_self.defaults.opacity = parseFloat(_self.defaults.opacity);
+        _self.defaults.opacity = parseFloat(_self.defaults.opacity);
 
 		
 
@@ -1255,13 +1263,13 @@ full_screen: function(n_height){
 
 			//Scroll to the top of the page 
 
-			$('html,body').data('curr_scroll',$('html,body').scrollTop())
+			$('html,body').data('curr_scroll',$('html,body').scrollTop());
 
 			$('html,body').scrollTop(0);
 
-			var o_wid = gall_wrap.css('width');
+			var o_wid = _gal_width;
 
-			var o_hei = gall_wrap.css('height');
+			var o_hei = _gal_height;
 
 
 
@@ -1295,13 +1303,23 @@ full_screen: function(n_height){
 
 
 
-		}else{
+		}else{ //if Full screen is ON
 
-			var o_wid = parseInt(gall_wrap.data('dims').o_width);
-
-			var o_hei = parseInt(gall_wrap.data('dims').o_height);
-
-			
+		   var o_wid = gall_wrap.data('dims').o_width;
+             if(typeof(o_wid) === 'string'){ 
+                if(o_wid.search(/\%/) === -1 )
+                o_wid = parseInt(o_wid);
+             }else{
+                o_wid = parseInt(o_wid);
+             }
+		 var o_hei = gall_wrap.data('dims').o_height;	
+            if(typeof(o_hei) === 'string'){
+           
+                if(o_hei.search(/\%/) === -1 )
+                o_hei = parseInt(o_hei);
+			}else{
+                o_hei = parseInt(o_hei);
+			}
 
 			gall_wrap.css({'width': o_wid,'height':o_hei});
 
@@ -1611,6 +1629,11 @@ check_pic_has_changed:function(){
 
 	/*TOGGLE Func*/ //Turns the gallery on or off
 
+get_holder: function () {
+    
+    return $(this.defaults.gall_holder);
+    
+},
 gal_toggle: function(callback){
 
 		var _self = this;
