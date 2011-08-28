@@ -6,7 +6,7 @@ $(document).ready(function(){
                  gal_width:'100%',
 				 full_screen:true,
 				 automatic:true,
-                 timer_prd:5000
+                 timer_prd:1000
                  });
 	
 		//When pic_slider obj is finished loading, hide and remove hidden class
@@ -70,6 +70,10 @@ $(document).ready(function(){
                     BI_thumbs.show_thumbs('#holder_wrap_bi');//Shows Container based on id
                 
                 }else{
+                    //Check that slider is not in full screen if it is, turn it off
+                    if(Pic_Slider.fs_on){
+                        $('#gall_nav .full_screen').trigger('click');     
+                    }
                     BI_thumbs.show_thumbs('#image_gallery');
                     
                 }
@@ -90,9 +94,9 @@ $(document).ready(function(){
           if(!$(this).hasClass('active')){  //Check that is not active   
                 
                 if($(this).hasClass('play')){
-                  Pic_Slider.timer(true);  
+                  Pic_Slider.set_timer('on')  
                 }else{
-                  Pic_Slider.timer(false);
+                  Pic_Slider.set_timer('off') 
                 }
                 $('#gall_nav .play,#gall_nav .pause').toggleClass('active');
          }       
@@ -101,19 +105,13 @@ $(document).ready(function(){
         //Full Screen Button
          $('#gall_nav .full_screen').click(function(e){
              Pic_Slider.full_screen();
+             $(this).toggleClass('active');
         })
 
              
-     //Init Thumbs >> Initializes thumb tooltips; 
+        //Init Thumbs >> Initializes thumb tooltips; 
 	   	BI_thumbs.init();
-       /* $('#image_gallery .image_cont').hover(
-                                                function(){
-                                                   $(this).stop(true,true).effect("scale", { percent: 150}, 500);
-                                                          },
-                                                function(){
-                                                   $(this).stop(true,true).effect("scale", { percent: 100}, 500); 
-                                                });
-       */
+      
         $('#gall_nav .thumbs').addClass('active');
         $('#gall_nav .play').addClass('active');	
   

@@ -8,6 +8,10 @@ overflow:hidden;
 display:block;
 }
 /*Nav Header Key Word*/
+#gall_meta{
+position:absolute;    
+
+}
 #page_hd h1{
 background:url("/assets/img/arrow_sub_nav.png") no-repeat right 9px transparent;
 display:block;
@@ -53,6 +57,15 @@ text-transform:uppercase;
 #gall_nav a:hover.full_screen{
     background-position:11px -38px;  
 }
+
+#gall_nav a.full_screen.active{
+    background-position:-218px 14px;
+}
+#gall_nav a:hover.full_screen.active{
+    background-position:-218px -38px;  
+}
+
+
 #gall_nav a.play{
     background-position:-85px 14px;    
 }

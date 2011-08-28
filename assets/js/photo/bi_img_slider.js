@@ -62,7 +62,7 @@ var Pic_Slider = {
 
 	current_pos:0,
 
-	gall_ctrl:'#port_hd', //div that contains the meta_info and nav for the gallery
+	gall_ctrl:'#page_hd', //div that contains the meta_info and nav for the gallery
 
 	//--Exportable Data--//
 
@@ -93,7 +93,9 @@ var Pic_Slider = {
 		all_pics:0
 
 	},
-
+    
+    fs_on: false, //Check if full screen is on
+    is_hidden: true, //Check if gallery is hidden
 	//MyPic object prototype
 
 myPic:function (params){
@@ -367,7 +369,12 @@ init: function(options){
 			
 
 		}
+       //Listener when window is resized: 
+       $(window).resize(function() {
+				
+                _self.scroller_mf(_self.current_pos, true);
 
+			}); 
 		
 
 		
@@ -1002,20 +1009,13 @@ scroller_mf: function(pos,calc){
 
 		var _container = _self.container;
 
-		var _gal_width = _self.defaults.gal_width;
-
+        var _gal_width = $(window).width(); //settin new GLOBAL width
+	
 		var x_init = parseInt($(_container).css('left'));
 
 		var _opacity = _self.defaults.opacity;
 
 		var totW = $(_container).width();
-
-		//Checking for an absolute width:
-        
-        if (_gal_width === "100%") {
-            
-            _gal_width = $(window).width(); //settin new GLOBAL width
-        }
 
 		if(!calc) // if calc variable not passed skip the appending and prepending
 
@@ -1224,7 +1224,8 @@ full_screen: function(n_height){
 		var _container =  $(_self.container);
 
 		var _gall_ctrl = $(_self.gall_ctrl);
-
+        
+        var is_on = false;
 		
 
 		n_height = 0.75*(screen.height);
@@ -1234,12 +1235,8 @@ full_screen: function(n_height){
 		if(!$('#bi_gall_temp').exists()) //If full_screen is not on 
 
 		{  
-
-
-
-			//create temp hook for META INFO and plug it inside the light box
-
-
+            
+            //create temp hook for META INFO and plug it inside the light box
 
 			_gall_ctrl.wrap('<div id="bi_ctrl_temp" />');
 
@@ -1287,22 +1284,10 @@ full_screen: function(n_height){
 
 			_self.defaults.gal_height = n_height;         //settin new GLOBAL height
 
-
-
-			$(window).resize(function() {
-
-				_self.defaults.gal_width = $(window).width();
-
-				gall_wrap.css({'width': n_width});
-
-				_self.scroller_mf(_self.current_pos, true);
-
-			});
-
-
-
-
-
+           //Turnig it on 
+           _self.fs_on = true;
+            
+            
 		}else{ //if Full screen is ON
 
 		   var o_wid = gall_wrap.data('dims').o_width;
@@ -1331,7 +1316,7 @@ full_screen: function(n_height){
 
 			$('html,body').scrollTop(o_scroll_pos);
 
-			$(window).unbind();
+			//$(window).unbind();
 
 			_self.defaults.gal_width =o_wid;
 
@@ -1362,6 +1347,9 @@ full_screen: function(n_height){
 			$('#bi_ctrl_temp').remove();
 
 			$('.full_scr_btn').removeClass('full_scr_big');
+            
+            //Turnig it off
+           _self.fs_on = false;
 
 		}
 
@@ -1466,14 +1454,9 @@ timer: function(toggle){
 		var _self = this;
 
 		var time = _self.defaults.timer_prd;
-
-		var _gall_holder = $(_self.defaults.gall_holder);
-
-
-
-		//proxy function that lauches the scrolling function evey given time  
-
-		scroll_mf = function(){
+        
+        //proxy function that lauches the scrolling function evey given time  
+        scroll_mf = function(){
 
 			_self.scroller_mf(_self.current_pos+1);	
 
@@ -1578,41 +1561,9 @@ check_gall_loaded:function(){
 	/*CHECK ALL PICS Func*/ //If All Pictures are Loaded
 
 check_all_pics:function(){
-
-		var _self = this;
-
-		var gall_wrap = $(_self.defaults.gall_holder);
-
-		//Activate timer once all pictures have been loaded
-
-		//TIMER 
-
-		//setup and Listeners:
-
-		if(_self.defaults.automatic){ //Check default settings
-
-			//Timer Event Listeners
-
-			gall_wrap.hover( // hover over gallery stop timer, 
-
-
-
-			function(){ //OVER
-
-				_self.timer(false);
-
-			},
-
-			function(){  //OUT
-
-				_self.timer(true);
-
-			})
-
-		}
-
-		
-
+	
+        this.gall_holder_listener();
+        
 		$.isFunction(this.PICS_Loaded) && this.PICS_Loaded(); //Call_back function
 
 	},
@@ -1633,6 +1584,58 @@ get_holder: function () {
     
     return $(this.defaults.gall_holder);
     
+},
+
+set_timer: function (setting) {
+    
+    var _self = this;
+     
+    switch(setting){
+        
+    case 'off':
+         _self.defaults.automatic = false;
+         _self.timer(false);
+         _self.gall_holder_listener();
+         
+          break;
+         
+    case 'on':                
+         _self.defaults.automatic = true; 
+         _self.timer(true);
+         _self.gall_holder_listener();
+          break;
+    
+    default:    
+         _self.defaults.automatic = false;
+         _self.timer(false);
+         _self.gall_holder_listener();
+    }
+},
+
+//SEts or Unsets hover listeners for gallery holder 
+gall_holder_listener: function(){
+    
+    	var _self = this;
+		var gall_wrap = $(_self.defaults.gall_holder);
+
+            if(_self.defaults.automatic){ //Check default settings
+
+			 //Timer Event Listeners
+
+    			gall_wrap.hover( // hover over gallery stop timer, 
+            		function(){ //OVER
+            			_self.timer(false);
+        			},
+        			function(){  //OUT
+        				_self.timer(true);
+            		})
+
+		   }else{
+		      
+              gall_wrap.unbind();
+              
+		   }
+  
 },
 gal_toggle: function(callback){
 

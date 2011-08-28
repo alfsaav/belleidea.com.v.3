@@ -21,7 +21,7 @@ init:function(id){
 			pos_y = 0,    
 			init_pos = pic.position(); //current size position obj
 			
-			//Getting initial and final widths 
+            //Getting initial and final widths 
 			var w_ini = pic.width(),
 			w_fin = thumb_pic.attr('width')
 			
@@ -41,18 +41,42 @@ init:function(id){
 			thumb
 			.css({'z-index' : '10',
 				'position':'absolute',
-				'width':w_fin,
 				'left': pos_x, 
-				'top': pos_y
-			}) 
-			.stop(true,true).show().effect("size", {origin:['middle','center'],from:{'width': w_ini,'height': h_ini}, to: {'width': w_fin,'height': h_fin} }, 200);      
-			
+				'top': pos_y,
+                'display':'block'
+            }) 
+			.stop(true,true)
+            
+            if( $('body').hasClass('firefox')){ //Check for Firefox
+                
+              thumb.show();
+                
+            }else{
+            
+              thumb.effect("size", 
+                        {
+                             origin:['middle','center'],
+                             from:{'width': w_ini,'height': h_ini}, 
+                             to: {'width': w_fin,'height': h_fin},
+                             scale:'content' 
+                        }, 200);      
+		    }      
+            
 			
 		}, function() {
-			$(this).find('.thumb_tip')
-			.stop(true,true)
-			.hide();
 			
+            var thumb = $(this).find('.thumb_tip');
+            
+            thumb
+    			.removeAttr("style")
+                .stop(true,true)
+                .hide();
+            
+            thumb
+                 .find('img')
+                 .removeAttr("style")
+                 .stop(true,true);
+         	console.log('finished');
 		});
 	},//End of init func 
 	/*
@@ -106,9 +130,6 @@ init:function(id){
             //Just show the darn elem
 	   if(id === "#holder_wrap_bi"){
              
-                /*$(id).css({'visibility': 'visible','top':-150,'opacity':0,'display':'block'})
-                .animate({'opacity':1,'top':0},500);
-                */
                 $(id).css({'visibility': 'visible','top':0,'opacity':1})
                 .show();                       
                 
