@@ -77,20 +77,21 @@ color:#FFF;
 #holder_wrap_bi{
 
 float:none;
-
 height:500px;
-
 overflow:hidden;
-
 position:relative;
-
-width:980px;
-
+width:100%;
+margin-bottom: -30px;
 -moz-user-select: none;
 -webkit-user-select: none;
 
 }
-
+#holder_wrap_bi.full_screen{
+    
+  margin: 0;
+  width:100%;  
+    
+}
 #holder_wrap_bi.hidden{
  visibility:hidden;
  position:absolute;   
@@ -134,10 +135,7 @@ float:left;
 
 }
 
-._img_loading {
-
-	
-
+._img_loading, .loaded {
 background-image:url("/assets/img/ajax_loader_3_dots.gif");
 
 background-repeat:no-repeat;
@@ -155,10 +153,13 @@ height:500px;
 border-right:#FFF solid 1px;
 
 /*margin-right:3px;*/
-
-	
-
 }
+
+.loaded {
+  background:  #CCC;
+}
+
+
 
 .gall_btn{
 

@@ -10,11 +10,36 @@ init:function(id){
 		if(typeof id !== 'undefined')
 		that.show_thumbs(id,true);
 		
-		
+		//Thumb Preloaders
+        $.each($('.thumb .image_cont > img'),function(i, img){
+            
+            var width = $(img).width(),
+                height= $(img).height(),
+                img_par = $(img).parent(); //img parent
+            
+            $(img).load(function(){
+                $(this).parent().find('.pre_img').remove();
+                $(this).fadeIn();
+            })             
+                
+            //Preload Image
+            var pre_img = $('<div></div>');
+			
+			pre_img.css({
+			             'width':width,
+                         'height':height,
+			            })
+                          .addClass('pre_img')
+                          .appendTo(img_par);    
+         });
+        
 		//Thumbnails Hover Handler
 		$('.thumb').hover(function() {
 			
-			var thumb = $(this).find('.thumb_tip'), //Thumbnail container
+            if($(this).find('.image_cont .pre_img').length > 0)
+            return false;
+            
+            var thumb = $(this).find('.thumb_tip'), //Thumbnail container
 			thumb_pic = $(this).find('.thumb_tip img'), //Thumbnail pic
 			pic = $(this).find('.image_cont > img'), //Original pic 
 			pos_x = 0,
@@ -37,17 +62,18 @@ init:function(id){
             pos_x = init_pos.left - (w_fin - w_ini)/2 - padd_x; 
 			pos_y = init_pos.top - (h_fin - h_ini)/2 - padd_y; 
             
-			//Updating position 
+			
+            //Updating position 
 			thumb
 			.css({'z-index' : '10',
-				'position':'absolute',
-				'left': pos_x, 
-				'top': pos_y,
-                'display':'block'
+                'position':'absolute',
+                'width':w_fin,
+                'left': pos_x, 
+                'top': pos_y
             }) 
-			.stop(true,true)
+			.stop(true,true);
             
-            if( $('body').hasClass('firefox')){ //Check for Firefox
+            if( $('body').hasClass('firefox') || $('body').hasClass('IE7')){ //Check for Firefox
                 
               thumb.show();
                 
@@ -68,80 +94,50 @@ init:function(id){
             var thumb = $(this).find('.thumb_tip');
             
             thumb
-    			.removeAttr("style")
+    			//.removeAttr("style")
                 .stop(true,true)
                 .hide();
             
             thumb
                  .find('img')
-                 .removeAttr("style")
+                 //.removeAttr("style")
                  .stop(true,true);
-         	console.log('finished');
+         	
 		});
 	},//End of init func 
 	/*
 		Show Thumnails (based on container id)
 	*/
-	show_thumbs:function(id,animate){
+	switch_panel:function(id,anim_type,callback){
 		
-		//sanitazing entry var
+		var _self = this;
+        
+        //sanitazing entry var
 		if(id.search(/#/) == -1){
 			id = '#'+id;            
 		}
-
-		
-		//Hide all containers
-        if($('.photo_elem.active').attr('id') === 'holder_wrap_bi'){
-             
-             $('#holder_wrap_bi').css({'position':'absolute'}).animate({'opacity':0,'top':-150},750,function(){                    
-                    $(this).hide();
-                    $(this).css({'position':'relative'})
-             })
+        ////
+        //Hide Active Panel
+	    var old_panel = $('.photo_elem.active');
             
-        }else{
-            $('.photo_elem.active').hide();
+        switch(anim_type){
+            
+            case "fade out":
+                _self.fade_up(old_panel);
+                break;
+            default:
+                old_panel.hide();
         }
+          
+        old_panel.removeClass('active');
         
-        $('.photo_elem.active').removeClass('active');
-        		
-		if(animate){
-			
-			//Get thumbnails of this collection
-			var my_thumbs = $(id).find('.thumb');
-			
-			//Make their content invisible (keep dimensions)
-			my_thumbs.css({'visibility': 'hidden'});
-			
-			$.each(my_thumbs, function(i,thumb){
-				
-				var show_thumb = function(){
-					$(thumb).css({'visibility': 'visible','opacity':'0'}).animate({'opacity':'1'},500);
-				}
-                var my_random = Math.floor(Math.random() * 1000) + 500;
-				//Delaying animation               
-				setTimeout(show_thumb,my_random);    
-				
-			});
-			//Show Given Container
-			$(id).show('slow');  
-		}
-		else{
-			
-            //Just show the darn elem
-	   if(id === "#holder_wrap_bi"){
-             
-                $(id).css({'visibility': 'visible','top':0,'opacity':1})
-                .show();                       
-                
-            }else{
-            
-            $(id).show();
-            
-            } 
-	    }
-        
-        $(id).addClass('active');
+        //Add Selected Panel
+        $(id).show()
+             .addClass('active');
 		
+        //Run Callback if any
+        $.isFunction(callback) && callback();
+        
 		
 	},//End of show_thumbs func 	 	
     ////		
@@ -169,5 +165,31 @@ init:function(id){
                     'top':f_img_h+'px'			
                     })		
          });//End of each			
+    },
+    
+////		
+//Transition animations
+////
+    
+    fade_up:function(obj, callback){
+        
+        var obj_pos = $(obj).position();
+        
+        $(obj).css({ 'position':'absolute', 
+                     'top':obj_pos.top,
+                     'left':obj_pos.left,
+                     'z-index':10000
+                    }).animate({'opacity':0,
+                                'top':-150},750,function(){                    
+    
+                                        $(this).removeAttr("style")
+                                               .hide();
+                                 });
+
+        
+        
     }
+
+
+    
 }//End of BI_thumbs 

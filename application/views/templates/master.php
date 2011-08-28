@@ -57,7 +57,8 @@
            $browser = strtolower ($user_agent['browser']); 
            if(preg_match("/internet explorer/",$browser) !== 0){
             
-            $browser = "ie".$user_agent['version'];
+            $ver  = $user_agent['version'][0];
+            $browser = "IE IE".$ver;
             
            }
            

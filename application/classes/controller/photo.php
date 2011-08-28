@@ -199,11 +199,11 @@ class Controller_Photo extends Controller_MasterTemplate {
 			$myThumbs .= sprintf('<div class="thumb">%1$s %2$s </div>',
 			vsprintf('<div class="image_cont" id="div_%1$s">
 							<img id="img_%1$s" width="%2$d" height="%3$d" src="%4$s"/>
-						</div>',
+                      </div>',
 			$thumb_data_1),
 			
 			vsprintf('<a class="thumb_tip" id="ctip_%1$s" href="%2$s">
-							<img   width="%3$d" height="%4$d" src="%5$s"/>
+							<img  width="%3$d" height="%4$d" src="%5$s"/>
 							%6$s %7$s
 						</a>',
 			$thumb_data_2)

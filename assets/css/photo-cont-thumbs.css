@@ -27,10 +27,20 @@
     display:none;
     cursor: pointer;
     border:9px solid white;
+    background: #f8f8f8;
      -moz-box-shadow: 3px 3px 10px #C4C4C4;
     -webkit-box-shadow: 3px 3px 10px #C4C4C4;
     box-shadow: 3px 3px 10px #C4C4C4;
 }
+.thumb .loading{
+    background: url("/assets/img/ajax-loader-cir.gif") no-repeat center #f8f8f8;
+}
+body.IE8 .thumb_tip,
+body.IE7 .thumb_tip {
+    
+   border:9px solid lightgray; 
+}
+
 a.thumb_tip:hover{
     text-decoration:none;
 }
@@ -57,7 +67,24 @@ a.thumb_tip:hover{
     box-shadow: 3px 3px 10px #C4C4C4;
     border: 7px solid white;
     vertical-align: middle;
+    background: #f8f8f8;
+    display:none;
 }
+
+.thumb .image_cont .pre_img {
+    background: url("/assets/img/ajax-loader-cir.gif") no-repeat center #f8f8f8;
+    border: 7px solid white;
+    vertical-align: middle;
+}
+
+
+body.IE8 .thumb  .image_cont img,
+body.IE7 .thumb  .image_cont img {
+    
+   border: 7px solid lightgray;
+    
+}
+
 /*Collection Thumbnails*/
 .bi-collection.thumb{
 border: 1px solid grey;

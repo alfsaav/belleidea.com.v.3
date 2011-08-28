@@ -67,18 +67,17 @@ text-transform:uppercase;
 
 
 #gall_nav a.play{
-    background-position:-85px 14px;    
+     background-position:-85px 14px; /*Play Icon*/ 
 }
-#gall_nav a:hover.play,
+#gall_nav a:hover.play{
+    
+     background-position:-85px -38px;
+}
 #gall_nav a.active.play {
-    background-position:-85px -38px;  
+      background-position:-37px 14px;/*Pause Icon*/ 
 }
-#gall_nav a.pause{
-    background-position:-37px 14px;    
-}
-#gall_nav a:hover.pause,
-#gall_nav a.active.pause {
-    background-position:-37px -38px;  
+#gall_nav a:hover.active.play{
+    background-position:-37px -38px;
 }
 #gall_nav a.thumbs{
     background-position:-179px 14px    
@@ -94,7 +93,7 @@ text-transform:uppercase;
 #gall_nav a.active.slider {
     background-position:-132px -38px;  
 }
-#gall_nav a.sl-mode{
+#page_hd .sl-mode{
 display:none; 
 }
 
@@ -142,7 +141,7 @@ display:none;
 
 #image_gallery{
   padding-top: 20px;
-}
+ }
 
 
 /*----------Portfolio Control panel/Tabs------------------*/

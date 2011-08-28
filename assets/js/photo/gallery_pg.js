@@ -4,9 +4,9 @@ $(document).ready(function(){
 		Pic_Slider.init({gall_holder:'#web_gallery',
 				 gal_height:'500',
                  gal_width:'100%',
-				 full_screen:true,
+				 full_screen:false,
 				 automatic:true,
-                 timer_prd:1000
+                 timer_prd:5000
                  });
 	
 		//When pic_slider obj is finished loading, hide and remove hidden class
@@ -59,47 +59,54 @@ $(document).ready(function(){
 		});
         
         //Navigation Listeners
+        
         //Gallery Views
         $('#gall_nav .slider,#gall_nav .thumbs').click(function(e){
-          
-          e.preventDefault();
+         e.preventDefault();
           if(!$(this).hasClass('active')){  //Check that is not active    
                 
                 if($(this).hasClass('slider')){
                     
-                    BI_thumbs.show_thumbs('#holder_wrap_bi');//Shows Container based on id
+                    BI_thumbs.switch_panel('#holder_wrap_bi');//Shows Container based on id
+                    $('#gall_nav .play').trigger('click');
+                    Pic_Slider.scroller_mf(Pic_Slider.current_pos, true); //switch to current pic;
                 
                 }else{
                     //Check that slider is not in full screen if it is, turn it off
                     if(Pic_Slider.fs_on){
                         $('#gall_nav .full_screen').trigger('click');     
                     }
-                    BI_thumbs.show_thumbs('#image_gallery');
+                    BI_thumbs.switch_panel('#image_gallery','fade out');
+                    
+                    Pic_Slider.set_timer('off');
+                    $('#gall_nav .play').removeClass('active');
                     
                 }
                 if($(this).attr('class') === 'slider'){
-                  $('#gall_nav .sl-mode').fadeIn('1000');  
+                  $('#page_hd .sl-mode').fadeIn('1000');  
                 }else{
-                  $('#gall_nav .sl-mode').fadeOut('300');
+                  $('#page_hd .sl-mode').fadeOut('300');
                 }
                 
                 $('#gall_nav .slider,#gall_nav .thumbs').toggleClass('active');
+          
+                $('body').toggleClass('no-fixed');
+          
           }      
                 
                 
         });
         //Automatic Play Listeners
-        $('#gall_nav .play,#gall_nav .pause').click(function(e){
+        $('#gall_nav .play').click(function(e){
           e.preventDefault();
-          if(!$(this).hasClass('active')){  //Check that is not active   
-                
-                if($(this).hasClass('play')){
-                  Pic_Slider.set_timer('on')  
+          
+                if($(this).hasClass('active')){
+                  Pic_Slider.set_timer('off')  
                 }else{
-                  Pic_Slider.set_timer('off') 
+                  Pic_Slider.set_timer('on') 
                 }
-                $('#gall_nav .play,#gall_nav .pause').toggleClass('active');
-         }       
+                $('#gall_nav .play').toggleClass('active');
+         
         });
         
         //Full Screen Button
@@ -112,8 +119,9 @@ $(document).ready(function(){
         //Init Thumbs >> Initializes thumb tooltips; 
 	   	BI_thumbs.init();
       
+        //Initial Defaults
         $('#gall_nav .thumbs').addClass('active');
-        $('#gall_nav .play').addClass('active');	
+        $('#gall_nav .pause').trigger('click');	
   
 		
 }); //End of Doc Ready  

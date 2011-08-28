@@ -118,6 +118,18 @@ width: 1201px;
 	width:100%;
 	z-index:50;
 }
+/*Exception for no-fixed mode*/
+body.no-fixed #header{
+    position:static;
+}
+body.no-fixed #header .fade_bar{
+    display:none;
+}
+body.no-fixed .body_content {
+	 margin-top: 0;
+}
+
+
 #main_hd {
 	background:url("/assets/img/header_bg.jpg") repeat-x scroll 0 -47px;
 	border-bottom:1px solid #E6E6E6;

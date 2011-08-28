@@ -63,7 +63,8 @@ var Pic_Slider = {
 	current_pos:0,
 
 	gall_ctrl:'#page_hd', //div that contains the meta_info and nav for the gallery
-
+    
+    fs_offset: 47, //offset of FullScreen, usually for fullscreen hud
 	//--Exportable Data--//
 
 	meta_data:{ //META DATA used for easy exportable access
@@ -105,11 +106,15 @@ myPic:function (params){
 		this.id = params.id;
 
 		this.width = params.width;
-
+        
 		this.height = params.height;
 
 		this.url = params.url;
-
+        
+        this.url_s = params.url_s;
+        
+        this.url_m = params.url_m;
+        
 		this.x_pos = params.x_pos;
 
 	},
@@ -581,7 +586,11 @@ load_php_json:function(data, pic_index){ //pic_index is the pic that will be fir
 
 				var pic_height = photo.height_m;
 
-				var pic_url = photo.url_m;
+				var pic_url = photo.url_l;
+                
+                var pic_url_m = photo.url_m;
+                
+                var pic_url_s = photo.url_s;
 
 				var pic_index = i;
 
@@ -589,7 +598,13 @@ load_php_json:function(data, pic_index){ //pic_index is the pic that will be fir
 
 				//creating a new myPic object id/index/position
 
-				var pic_obj = new _self.myPic({width:pic_width, height:pic_height, url:pic_url, index:pic_index}); 
+				var pic_obj = new _self.myPic({ width:pic_width,
+                                                height:pic_height,
+                                                url:pic_url,
+                                                url_m:pic_url_m,
+                                                url_s:pic_url_s,
+                                                index:pic_index
+                                              }); 
 
 				_self.my_pics.push(pic_obj); //pushing myPic object to an array
 
@@ -657,11 +672,7 @@ load_flicker: function (set_id,pic_index) {
 
 				_self.my_pics = new Array; //Flushing previous my_pics array
 
-				
-
-				
-
-				
+		
 
 				//Data Extracted from JSON file
 
@@ -815,21 +826,15 @@ display: function () {
 
 		_self.center_elems(); 
 
-		//IF there is less than 7 images to display duplicate set. 
+		//Clone amount of pictures, to prevent clipping
 
-		if (images.length < 7)
+		$.each(images, function (i, photo) {
 
-		{
+			var temp = $.extend(true,{},photo); // Creating a clone of first obj 
 
-			$.each(images, function (i, photo) {
+			images.push(temp);
 
-				var temp = $.extend(true,{},photo); // Creating a clone of first obj 
-
-				images.push(temp);
-
-			});
-
-		}
+		});
 
 		//setting updated my_pics array
 
@@ -839,28 +844,23 @@ display: function () {
 
 		img_loaded = function(){
 
-			$(this).parent().css({'background-image':'none'}); //remove loading gif background from parent div
-
+			$(this).parent().removeClass('_img_loading') //remove loading gif background from parent div
+                            .addClass('loaded')
+                            .find('.pre_img').remove();
+            
+            
 			$(this).fadeIn();
 
 			var	imag_l = $(this).parent().siblings().length;		
 
 			if($(this).parent().attr('id') == "bi_photo_0"){
-
-				
-
-				//scroll to initial position
-
-				_self.go_to_pic(_self.default_pic);  
-
-			}		
+        		//scroll to initial position
+        		_self.go_to_pic(_self.default_pic);  
+            }		
 
 			if(_self.ajax_list.all_pics==imag_l)
-
 			_self.check_all_pics();
-
-			
-
+            
 			_self.ajax_list.all_pics++;
 
 		}
@@ -874,6 +874,8 @@ display: function () {
 			var pic_height = "";
 
 			var pic_url = photo.url;
+            
+            var pic_url_s = photo.url_s;
 
 			var pic_id = "bi_photo_"+i; //Hard coded filae suffix convention 
 
@@ -929,14 +931,29 @@ display: function () {
 
 			//Appending DIV wrapper to img holder container
 
-			my_img.parent()
-
-			.appendTo(_container)
-
-			.attr('id',pic_id)
-
-			.show();
-
+			var img_div = my_img.parent();
+            
+            img_div.appendTo(_container)
+        			.attr('id',pic_id)
+        			.show();
+            
+            //Preload Image
+            var pre_img = $('<img></img>').attr('src', pic_url_s);
+			if ($.browser.msie){ //if MSIE add queries to fool IE and have it reload the img everytime, therefore no cashing for IE!! 
+				pre_img.attr('src', pic_url_s + '?random=' + (new Date()).getTime());	
+			}
+			pre_img.attr('height', pic_height)
+                   .attr('width', pic_width)
+                   .addClass('pre_img')
+                   .css('opacity',0.5)
+                   .appendTo(img_div);
+            
+			
+            
+            
+            
+            
+                
 
 
 			//if images don't have widths or heights
@@ -1092,8 +1109,11 @@ scroller_mf: function(pos,calc){
 		_self.meta_data.index = pic_index+1; //add one to account for incex=0  
 
 		//Opacity = 1 for IMG to be slided 
-
-		my_img.find('img').stop().animate({'opacity':'1'});
+        if(!my_img.hasClass('_img_loading')) {  //If image it's has been loaded'
+		
+        my_img.find('img').stop().animate({'opacity':'1'});
+        
+        }
 
 		//Holder Animation
 
@@ -1228,7 +1248,7 @@ full_screen: function(n_height){
         var is_on = false;
 		
 
-		n_height = 0.75*(screen.height);
+		n_height = $(window).height() - _self.fs_offset;//0.75*(screen.height);
 
 
 
@@ -1278,7 +1298,7 @@ full_screen: function(n_height){
 
 				'height':n_height			
 
-			})
+			}).addClass('full_screen');
 
 			_self.defaults.gal_width = $(window).width(); //settin new GLOBAL width
 
@@ -1306,7 +1326,7 @@ full_screen: function(n_height){
                 o_hei = parseInt(o_hei);
 			}
 
-			gall_wrap.css({'width': o_wid,'height':o_hei});
+			gall_wrap.css({'width': o_wid,'height':o_hei}).removeClass('full_screen');;
 
 			
 
@@ -1636,24 +1656,8 @@ gall_holder_listener: function(){
               
 		   }
   
-},
-gal_toggle: function(callback){
-
-		var _self = this;
-
-		var _gall_holder = $(_self.defaults.gall_holder);
-
-		_gall_holder.slideToggle(function(){
-
-			//Callback function
-
-			$.isFunction(callback) && callback();
-
-		});
-
-	}//End of toggle
-
-} /*--END OF PORTF_PAGE obj--*/
+}
+} /*--END OF Slider obj--*/
 
 
 
