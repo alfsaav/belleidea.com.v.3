@@ -293,7 +293,7 @@ init: function(options){
 
 			});
 
-
+            
 
 			$('.gall_btn_prev').click(function (e) {
 
@@ -302,7 +302,7 @@ init: function(options){
 				e.preventDefault();
 
 			});
-
+       
 		}
 
 		

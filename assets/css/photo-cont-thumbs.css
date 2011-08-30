@@ -74,6 +74,7 @@ a.thumb_tip:hover{
 .thumb .image_cont .pre_img {
     background: url("/assets/img/ajax-loader-cir.gif") no-repeat center #f8f8f8;
     border: 7px solid white;
+    display:inline-block;
     vertical-align: middle;
 }
 
@@ -121,28 +122,7 @@ width:65%;
 }
 .bi-collection img{
 position: absolute;
--webkit-transform: scale(1);
--webkit-transition-timing-function: ease-out;
--webkit-transition-duration: 200ms;
 
--moz-transform: scale(1);
--moz-transition-timing-function: ease-out;
--moz-transition-duration: 200ms;
-
--ms-transform: scale(1);
-
-}
-a:hover.bi-collection img{
-opacity:0.70;
--webkit-transform: scale(1.05);
--webkit-transition-timing-function: ease-out;
--webkit-transition-duration: 200ms;
-
--moz-transform: scale(1.05);
--moz-transition-timing-function: ease-out;
--moz-transition-duration: 200ms;
-
--ms-transform: scale(1.05);
 
 }
 .bi-collection h2{

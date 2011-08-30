@@ -149,12 +149,12 @@ init:function(id){
     
     $.each(my_thumbs, function(i,thumb){
         
-        var my_img = $(thumb).find('img'),
+        var my_img = $(thumb).find('img'),//image to be displaced
         	img_w = my_img.width(),
             img_h = my_img.height(),
 			f_img_w,
             f_img_h,			
-            thumb_d = 300; 									
+            thumb_d = my_img.parent().width(); //Size of container 									
         
         //Center Thumbnails with respect to its frame			
          
@@ -162,8 +162,68 @@ init:function(id){
          f_img_h = Math.round((thumb_d - img_h)/2); //Vertical			
          my_img.css({
                     'left':f_img_w+'px',				
-                    'top':f_img_h+'px'			
+                    'top':f_img_h+'px',			
+                    'opacity':0.75
                     })		
+         //Hover Effect
+         my_img.hover( 
+                        function(){
+                            
+                            var scale = 1.1,
+                                img = $(this),
+                                ini_w = img.width(),
+                                ini_h = img.height(),
+                                fin_w = img.width()*scale,
+                                fin_h = img.height()*scale;
+                            
+                            var ini_pos_x = parseInt(img.css('left')),
+                                ini_pos_y = parseInt(img.css('top')),
+                                fin_pos_x,
+                                fin_pos_y,
+                                delta_x,
+                                delta_y
+                                
+                                delta_x = (fin_w - ini_w) /2;
+                                delta_y = (fin_h - ini_h) /2;
+                                
+                                fin_pos_x  = ini_pos_x - delta_x;
+                                fin_pos_y  = ini_pos_y - delta_y;
+                                
+                                //Storing data
+                                if(typeof $.data(this,"dims") === 'undefined'){
+                                   
+                                    $.data(this, "dims", { width: ini_w,
+                                                           height: ini_h,
+                                                           top: ini_pos_y,
+                                                           left: ini_pos_x 
+                                                          });
+                                                          
+                                 }                     
+                                //Animate
+                                $(this).stop(true,true)
+                                       .animate({top:fin_pos_y,
+                                                 left:fin_pos_x,
+                                                 width:fin_w ,
+                                                 height:fin_h, 
+                                                 opacity:1
+                                                 }, 100);
+                           
+                        },
+                        function(){
+                            
+                            var old_dims = $.data(this,"dims");
+                            
+                            $(this).stop(true,true)
+                                   .animate({ width: old_dims.width,
+                                          height: old_dims.height,
+                                          top: old_dims.top,
+                                          left: old_dims.left,
+                                          opacity:0.75
+                                        },100);   
+                        
+                        })
+         
+         
          });//End of each			
     },
     

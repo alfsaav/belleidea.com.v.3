@@ -11,17 +11,15 @@
 
 
  <div id="foot_wrap" class="clear_bi">   <!--FOOTER-->                  
+ 
 
-
-<!--Twitter Feed--> 
+ <div id="footer" class="wrapper">
+  <!--Twitter Feed--> 
 <div id="twitt_hd"> 
 
     <span id="tl_tw_hd">Twitter:</span><span class="tweet"></span>
 
-</div> 
-
- <div id="footer" class="wrapper">
-
+</div>  
 					                   
 
                 <div id="first_ft">
