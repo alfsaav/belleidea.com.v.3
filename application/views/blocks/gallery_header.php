@@ -2,7 +2,7 @@
         <!--First block-->
         <div id="gall_meta">
             <h1>
-            <?php echo $parent_title;?> <!--Photography-->
+           <a href="/photo/"><?php echo $parent_title;?></a> <!--Photography-->
             </h1> 
             <h2>
             <?php echo $title;?> 

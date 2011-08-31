@@ -5,6 +5,7 @@
 .thumb_container{
     display:none;
     margin: 20px 0;
+    overflow:hidden;
 }
 /*Passive thumbs*/
 .thumb{
@@ -71,11 +72,17 @@ a.thumb_tip:hover{
     display:none;
 }
 
-.thumb .image_cont .pre_img {
+.thumb .pre_img {
     background: url("/assets/img/ajax-loader-cir.gif") no-repeat center #f8f8f8;
     border: 7px solid white;
     display:inline-block;
     vertical-align: middle;
+}
+
+.bi-collection.thumb .pre_img {
+    border: none;
+    display:block;
+    position:absolute;   
 }
 
 
@@ -96,7 +103,7 @@ margin: 11px;
 overflow: hidden;
 position: relative;
 width: 300px;
-background-color:#000;
+background-color: black;
 cursor:pointer;
 }
 
@@ -122,8 +129,7 @@ width:65%;
 }
 .bi-collection img{
 position: absolute;
-
-
+display:none;
 }
 .bi-collection h2{
 background:#4D4D4D;

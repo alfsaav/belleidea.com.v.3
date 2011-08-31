@@ -1,37 +1,14 @@
 var BI_thumbs = {       
 	/*
-		Thumbnails handler
-		*/
-init:function(id){
+	Thumbnails handler
+	*/
+    init:function(id){
 		
 		var that = this;
 		
-		//Initialize first container of thumbs
-		if(typeof id !== 'undefined')
-		that.show_thumbs(id,true);
-		
-		//Thumb Preloaders
-        $.each($('.thumb .image_cont > img'),function(i, img){
-            
-            var width = $(img).width(),
-                height= $(img).height(),
-                img_par = $(img).parent(); //img parent
-            
-            $(img).load(function(){
-                $(this).parent().find('.pre_img').remove();
-                $(this).fadeIn();
-            })             
-                
-            //Preload Image
-            var pre_img = $('<div></div>');
-			
-			pre_img.css({
-			             'width':width,
-                         'height':height,
-			            })
-                          .addClass('pre_img')
-                          .appendTo(img_par);    
-         });
+	
+        that.img_preload('.thumb .image_cont > img');
+        
         
 		//Thumbnails Hover Handler
 		$('.thumb').hover(function() {
@@ -105,9 +82,10 @@ init:function(id){
          	
 		});
 	},//End of init func 
-	/*
-		Show Thumnails (based on container id)
-	*/
+	
+////
+//Show Thumnails (based on container id)
+////
 	switch_panel:function(id,anim_type,callback){
 		
 		var _self = this;
@@ -140,9 +118,10 @@ init:function(id){
         
 		
 	},//End of show_thumbs func 	 	
-    ////		
-    //Centering Thumbnail images with its frame	
-    ////
+
+////		
+//Centering Thumbnail images with its frame	
+////
 	center_thumb_img:function(){
     
     var my_thumbs = $('.thumb');
@@ -166,11 +145,11 @@ init:function(id){
                     'opacity':0.75
                     })		
          //Hover Effect
-         my_img.hover( 
+         my_img.parent().hover( 
                         function(){
                             
                             var scale = 1.1,
-                                img = $(this),
+                                img = $(this).find('img'),
                                 ini_w = img.width(),
                                 ini_h = img.height(),
                                 fin_w = img.width()*scale,
@@ -199,8 +178,23 @@ init:function(id){
                                                           });
                                                           
                                  }                     
+                                //Fail gracefully 
+                                if( $('body').hasClass('firefox') || $('body').hasClass('IE7') || $('body').hasClass('IE8') ){ //Check for Firefox
+                
+                                  img.css({
+                                             top:fin_pos_y,
+                                             left:fin_pos_x,
+                                             width:fin_w ,
+                                             height:fin_h, 
+                                             opacity:1
+                                          })
+                                    
+                                    return false; // or die
+                                }
+                                
+                                
                                 //Animate
-                                $(this).stop(true,true)
+                                img.stop(true,true)
                                        .animate({top:fin_pos_y,
                                                  left:fin_pos_x,
                                                  width:fin_w ,
@@ -211,22 +205,86 @@ init:function(id){
                         },
                         function(){
                             
-                            var old_dims = $.data(this,"dims");
+                            var old_dims = $.data(this,"dims"),
+                                img = $(this).find('img');
                             
-                            $(this).stop(true,true)
+                            //Fail gracefully 
+                            if( $('body').hasClass('firefox') || $('body').hasClass('IE7') || $('body').hasClass('IE8') ){ //Check for Firefox
+            
+                              img.css({
+                                        width: old_dims.width,
+                                        height: old_dims.height,
+                                        top: old_dims.top,
+                                        left: old_dims.left,
+                                        opacity:0.75
+                                      })
+                                
+                                return false; // or die
+                            }
+                            
+                            
+                            
+                            //animate back to normal   
+                            img.stop(true,true)
                                    .animate({ width: old_dims.width,
                                           height: old_dims.height,
                                           top: old_dims.top,
                                           left: old_dims.left,
                                           opacity:0.75
-                                        },100);   
+                                        },400);   
                         
                         })
          
          
          });//End of each			
     },
-    
+////
+//Thumb/IMG Preloaders 
+////
+    img_preload:function(selection, class_name){
+        
+        var imgs = $(selection);
+        
+        if(imgs.length === 0 ){
+            
+            return false;  //If selection doesn't exist, kill func
+            
+        }
+        
+        $.each(imgs,function(i, img){
+            
+            var width = $(img).width(),
+                height= $(img).height(),
+                img_par = $(img).parent(); //img parent
+            
+            if ($.browser.msie){ //if MSIE add queries to fool IE and have it reload the img everytime, therefore no cashing for IE!! 
+
+				var pic_url = $(img).attr('src');
+                
+                $(img).attr('src', pic_url + '?random=' + (new Date()).getTime());	
+
+			}
+            
+            
+            $(img).load(function(){
+                $(this).parent().find('.pre_img').remove();
+                $(this).fadeIn();
+            })             
+                
+            //Preload Image
+            var pre_img = $('<div></div>');
+			
+			pre_img.css({
+			             'width':width,
+                         'height':height,
+                         'top': $(img).css('top'),
+                         'left': $(img).css('left')
+			            })
+                          .addClass('pre_img')
+                          .appendTo(img_par);    
+         });
+
+    },
 ////		
 //Transition animations
 ////

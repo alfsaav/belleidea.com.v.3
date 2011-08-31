@@ -17,6 +17,7 @@ foreach($collections as $key => $coll){
     
     //Loop throughout all the Colleciton Thumbs    
     $myThumbs= ''; //Thumbs string container
+    
     foreach($thumbs as $key => $thumb){
         
     	//scale thumbs to a fixed dimension ratio
@@ -60,10 +61,11 @@ foreach($collections as $key => $coll){
                                 </a>',$thumb_data);
    
     }
+    
     //Outputting Data
-    printf('<div id="collection_%1$s" 
+ printf('<div id="collection_%1$s" 
 			class="thumb_container photo_elem bi_collection" 
-			style="display:block">'.$myThumbs
+		  >'.$myThumbs
            	.'</div>',$id_alias, $id); //Add Id and display mode. 
     //$fire->log($thumbs);
 }
