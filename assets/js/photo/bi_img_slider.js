@@ -844,19 +844,36 @@ display: function () {
 
 		img_loaded = function(){
 
-			$(this).parent().removeClass('_img_loading') //remove loading gif background from parent div
+		    
+            var this_pic = $(this); 
+            var current_index = "bi_photo_"+(_self.meta_data.index - 1);
+            
+            if($(this).parent().attr('id') === current_index){
+                
+                $(this).css('opacity',1);
+                       
+            }
+              
+              $(this).fadeIn('slow');  
+              
+            
+            var my_opacity = _self.defaults.opacity;
+            //When loaded fadein actual pic and remove old pic after loaded
+            
+            
+            
+            this_pic.parent().removeClass('_img_loading') //remove loading gif background from parent div
                             .addClass('loaded')
                             .find('.pre_img').remove();
             
-            
-			$(this).fadeIn();
-
 			var	imag_l = $(this).parent().siblings().length;		
 
-			if($(this).parent().attr('id') == "bi_photo_0"){
+			/* Check if the first pic has been loaded
+            if($(this).parent().attr('id') == "bi_photo_0"){
         		//scroll to initial position
         		_self.go_to_pic(_self.default_pic);  
-            }		
+            }
+            */		
 
 			if(_self.ajax_list.all_pics==imag_l)
 			_self.check_all_pics();
@@ -1006,7 +1023,8 @@ display: function () {
 
 		_self.tm_gallery = setInterval(check_gall,500);
 
-		
+		//Loading on first img
+        _self.go_to_pic(1);
 
 		
 

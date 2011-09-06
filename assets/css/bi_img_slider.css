@@ -134,14 +134,16 @@ display:none;
 
 
 }
-
-#img_holder img{
-
+#img_holder img,
+#img_holder img.pre_img
+{
 display:block;
-
-float:left;
+position: absolute;
+top: 0;
+left: 0;
 
 }
+
 
 ._img_loading, .loaded {
 background-image:url("/assets/img/ajax_loader_3_dots.gif");
@@ -153,6 +155,8 @@ background-position:center center ;
 background-color:#CCC;
 
 display:block;
+
+position:relative;
 
 float:left;
 
